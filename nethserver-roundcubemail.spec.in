@@ -10,6 +10,7 @@ BuildRequires: nethserver-devtools
 
 AutoReq: no
 Requires: nethserver-httpd, nethserver-mysql
+Requires: roundcubemail
 
 %description
 NethServer configuration for Roundcube mail client
