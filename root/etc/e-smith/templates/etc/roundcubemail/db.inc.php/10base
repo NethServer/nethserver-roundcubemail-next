@@ -24,7 +24,7 @@ $rcmail_config = array();
 
 {
     use esmith::util;
-    my $password = esmith::util::genRandomPassword('roundcubemail', 0) || die('Could not get roundcubemail password!');
+    my $password = NethServer::Password::store('roundcubemail') || die('Could not generate roundcubemail password!');
     $OUT .= "\$rcmail_config['db_dsnw'] = 'mysql://roundcubemail:$password\@localhost/roundcubemail';\n";
 }
 // postgres example: 'pgsql://roundcube:pass@localhost/roundcubemail';
