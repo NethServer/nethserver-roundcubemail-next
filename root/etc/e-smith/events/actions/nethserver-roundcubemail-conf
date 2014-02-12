@@ -25,11 +25,12 @@ package esmith;
 use strict;
 use Errno;
 use esmith::util;
+use NethServer::Password;
 
 exit(0) unless system('/usr/bin/mysql roundcubemail -e "describe users" &> /dev/null') != 0;
 
 
-my $password = esmith::util::genRandomPassword('roundcubemail', 0) || die('Could not get roundcubemail password!');
+my $password = NethServer::Password::store('roundcubemail') || die('Could not generate roundcubemail password!');
 
 my $commands = join("\n", 
 	      "DROP USER 'roundcubemail'\@'localhost';",
