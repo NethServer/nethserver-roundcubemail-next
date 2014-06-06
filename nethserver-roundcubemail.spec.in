@@ -38,6 +38,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Fri Jun 06 2014 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.0-1.ns6
+- Roundcube: add dashboard widget - Enhancement #2707
+
 * Wed Feb 26 2014 Davide Principi <davide.principi@nethesis.it> - 0.0.2-1.ns6
 - Experimental Roundcube webmail package - Enhancement #2511 [NethServer]
 
