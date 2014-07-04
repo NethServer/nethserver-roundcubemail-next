@@ -33,9 +33,7 @@ exit(0) unless system('/usr/bin/mysql roundcubemail -e "describe users" &> /dev/
 my $password = NethServer::Password::store('roundcubemail') || die('Could not generate roundcubemail password!');
 
 my $commands = join("\n", 
-	      "DROP USER 'roundcubemail'\@'localhost';",
-	      "CREATE USER 'roundcubemail'\@'localhost' IDENTIFIED BY '$password';",
-	      "GRANT ALL PRIVILEGES ON `roundcubemail`.* TO 'roundcubemail'\@'localhost';",
+	      "GRANT ALL PRIVILEGES ON `roundcubemail`.* TO 'roundcubemail'\@'localhost' IDENTIFIED BY '$password';",
 	      "FLUSH PRIVILEGES;",
 	      "CREATE DATABASE IF NOT EXISTS roundcubemail DEFAULT CHARACTER SET = 'utf8';"
      ) . "\n";
