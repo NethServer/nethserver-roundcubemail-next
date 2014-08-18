@@ -38,6 +38,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Mon Aug 18 2014 Davide Principi <davide.principi@nethesis.it> - 1.0.1-1.ns6
+- Roundcube: installation fails - Bug #2802 [NethServer]
+
 * Fri Jun 06 2014 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.0-1.ns6
 - Roundcube: add dashboard widget - Enhancement #2707
 
