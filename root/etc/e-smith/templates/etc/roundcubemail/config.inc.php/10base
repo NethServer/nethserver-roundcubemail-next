@@ -66,8 +66,6 @@ $config['db_sequence_searches'] = 'search_ids';
 // end db config file
 
 
-$config = array();
-
 // ----------------------------------
 // LOGGING/DEBUGGING
 // ----------------------------------
