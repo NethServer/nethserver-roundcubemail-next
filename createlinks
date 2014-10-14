@@ -33,8 +33,7 @@ event_actions($event,
              'nethserver-roundcubemail-conf' => '20'
 );
 templates2events("/etc/httpd/conf.d/roundcubemail.conf",  $event);
-templates2events("./etc/roundcubemail/db.inc.php",  $event);
-templates2events("./etc/roundcubemail/main.inc.php",  $event);
+templates2events("./etc/roundcubemail/config.inc.php",  $event);
 event_services($event, 'httpd' => 'reload');
 
 
