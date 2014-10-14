@@ -13,5 +13,5 @@ RewriteRule ^/roundcubemail(/.*)?\$ https://%{HTTP_HOST}/roundcubemail\$1 [R=301
 <Directory /usr/share/roundcubemail/>
         Order Deny,Allow
         Deny from all
-        Allow from {{ $localAccess }}
+        Allow from {$OUT .= ( $roundcubemail{access} eq "public" ) ? "all" : $localAccess ;}
 </Directory>

@@ -44,7 +44,7 @@ open(FH, '|-', '/usr/bin/mysql -B -f') || die("[ERROR] Could not connect to mysq
 print FH $commands;     
 close(FH);
 
-my @dirs = glob "/usr/share/doc/roundcubemail*";
+my @dirs = glob "/usr/share/roundcubemail*";
 
 system("/usr/bin/mysql roundcubemail < ".$dirs[0]."/SQL/mysql.initial.sql");
 
