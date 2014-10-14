@@ -457,12 +457,7 @@ $config['email_dns_check'] = false;
 // Note: useful when SMTP server stores sent mail in user mailbox
 $config['no_save_sent_messages'] = false;
 
-// ----------------------------------
-// PLUGINS
-// ----------------------------------
 
-// List of active plugins (in plugins/ directory)
-$config['plugins'] = array();
 
 // ----------------------------------
 // USER INTERFACE
@@ -603,7 +598,27 @@ $config['address_book_type'] = 'sql';
 // In order to enable public ldap search, configure an array like the Verisign
 // example further below. if you would like to test, simply uncomment the example.
 // Array key must contain only safe characters, ie. a-zA-Z0-9_
-$config['ldap_public'] = array();
+$config['ldap_public']['Local_LDAP'] = array('hosts' => array('localhost'),
+                                        'port'          => 389,
+  {
+    use NethServer::Directory;
+    $OUT .= "                                   'base_dn'       \=\> " ."'". NethServer::Directory::getInternalSuffix ."',";
+  }
+
+                                       'search_fields' => array('Email' => 'mail', 'Name' => 'cn'),
+                                        'name_field'    => 'cn',
+                                        'email_field'    => 'mail',
+                                        'jobtitle_field'    => 'title',
+                                        'phone:work_field'  => 'telephoneNumber',
+                                        'street_field'      => 'street',
+                                        'zipcode_field'     => 'postalCode',
+                                        'region_field'      => 'st',
+                                        'locality_field'    => 'l',
+                                        'country_field'      => 'c',
+                                        'organization_field' => 'o',
+                                        'department_field'   => 'ou',
+                                        'scope'         => 'sub',
+                                        'fuzzy_search'  => 1);
 
 // If you are going to use LDAP for individual address books, you will need to 
 // set 'user_specific' to true and use the variables to generate the appropriate DNs to access it.
@@ -743,7 +758,7 @@ $config['ldap_public']['Verisign'] = array(
 
 // An ordered array of the ids of the addressbooks that should be searched
 // when populating address autocomplete fields server-side. ex: array('sql','Verisign');
-$config['autocomplete_addressbooks'] = array('sql');
+$config['autocomplete_addressbooks'] = array('sql','Local_LDAP');
 
 // The minimum number of characters required to be typed in an autocomplete field
 // before address books will be searched. Most useful for LDAP directories that
