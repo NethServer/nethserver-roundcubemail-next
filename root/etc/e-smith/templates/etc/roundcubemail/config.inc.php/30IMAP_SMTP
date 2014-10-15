@@ -1,0 +1,121 @@
+// ----------------------------------
+// IMAP
+// ----------------------------------
+
+// The mail host chosen to perform the log-in.
+// Leave blank to show a textbox at login, give a list of hosts
+// to display a pulldown menu or set one host as string.
+// To use SSL/TLS connection, enter hostname with prefix ssl:// or tls://
+// Supported replacement variables:
+// %n - hostname ($_SERVER['SERVER_NAME'])
+// %t - hostname without the first part
+// %d - domain (http hostname $_SERVER['HTTP_HOST'] without the first part)
+// %s - domain name after the '@' from e-mail address provided at login screen
+// For example %n = mail.domain.tld, %t = domain.tld
+// WARNING: After hostname change update of mail_host column in users table is
+//          required to match old user data records with the new host.
+{
+    my $server = $roundcubemail{'Server'} || 'localhost';
+    $OUT.="\$config['default_host'] = '$server';\n";
+}
+// TCP port used for IMAP connections
+$config['default_port'] = 143;
+
+// IMAP AUTH type (DIGEST-MD5, CRAM-MD5, LOGIN, PLAIN or null to use
+// best server supported one)
+$config['imap_auth_type'] = null;
+
+// If you know your imap's folder delimiter, you can specify it here.
+// Otherwise it will be determined automatically
+$config['imap_delimiter'] = null;
+
+// If IMAP server doesn't support NAMESPACE extension, but you're
+// using shared folders or personal root folder is non-empty, you'll need to
+// set these options. All can be strings or arrays of strings.
+// Folders need to be ended with directory separator, e.g. "INBOX."
+// (special directory "~" is an exception to this rule)
+// These can be used also to overwrite server's namespaces
+$config['imap_ns_personal'] = null;
+$config['imap_ns_other']    = null;
+$config['imap_ns_shared']   = null;
+
+// By default IMAP capabilities are readed after connection to IMAP server
+// In some cases, e.g. when using IMAP proxy, there's a need to refresh the list
+// after login. Set to True if you've got this case.
+$config['imap_force_caps'] = false;
+
+// By default list of subscribed folders is determined using LIST-EXTENDED
+// extension if available. Some servers (dovecot 1.x) returns wrong results
+// for shared namespaces in this case. http://trac.roundcube.net/ticket/1486225
+// Enable this option to force LSUB command usage instead.
+$config['imap_force_lsub'] = false;
+
+// Some server configurations (e.g. Courier) doesn't list folders in all namespaces
+// Enable this option to force listing of folders in all namespaces
+$config['imap_force_ns'] = false;
+
+// IMAP connection timeout, in seconds. Default: 0 (no limit)
+$config['imap_timeout'] = 0;
+
+// Optional IMAP authentication identifier to be used as authorization proxy
+$config['imap_auth_cid'] = null;
+
+// Optional IMAP authentication password to be used for imap_auth_cid
+$config['imap_auth_pw'] = null;
+
+// Type of IMAP indexes cache. Supported values: 'db', 'apc' and 'memcache'.
+$config['imap_cache'] = null;
+
+// Enables messages cache. Only 'db' cache is supported.
+$config['messages_cache'] = false;
+
+
+// ----------------------------------
+// SMTP
+// ----------------------------------
+
+// SMTP server host (for sending mails).
+// To use SSL/TLS connection, enter hostname with prefix ssl:// or tls://
+// If left blank, the PHP mail() function is used
+// Supported replacement variables:
+// %h - user's IMAP hostname
+// %n - hostname ($_SERVER['SERVER_NAME'])
+// %t - hostname without the first part
+// %d - domain (http hostname $_SERVER['HTTP_HOST'] without the first part)
+// %z - IMAP domain (IMAP hostname without the first part)
+// For example %n = mail.domain.tld, %t = domain.tld
+$config['smtp_server'] = '';
+
+// SMTP port (default is 25; use 587 for STARTTLS or 465 for the
+// deprecated SSL over SMTP (aka SMTPS))
+$config['smtp_port'] = 25;
+
+// SMTP username (if required) if you use %u as the username Roundcube
+// will use the current username for login
+$config['smtp_user'] = '';
+
+// SMTP password (if required) if you use %p as the password Roundcube
+// will use the current user's password for login
+$config['smtp_pass'] = '';
+
+// SMTP AUTH type (DIGEST-MD5, CRAM-MD5, LOGIN, PLAIN or empty to use
+// best server supported one)
+$config['smtp_auth_type'] = '';
+
+// Optional SMTP authentication identifier to be used as authorization proxy
+$config['smtp_auth_cid'] = null;
+
+// Optional SMTP authentication password to be used for smtp_auth_cid
+$config['smtp_auth_pw'] = null;
+
+// SMTP HELO host 
+// Hostname to give to the remote server for SMTP 'HELO' or 'EHLO' messages 
+// Leave this blank and you will get the server variable 'server_name' or 
+// localhost if that isn't defined. 
+$config['smtp_helo_host'] = '';
+
+// SMTP connection timeout, in seconds. Default: 0 (no limit)
+// Note: There's a known issue where using ssl connection with
+// timeout > 0 causes connection errors (https://bugs.php.net/bug.php?id=54511)
+$config['smtp_timeout'] = 0;
+

@@ -16,3 +16,6 @@
      my $plugins = $DB->get_prop('roundcubemail','PluginsList') || "";
      $OUT .= "\$config['plugins'] = array($plugins);";
    }
+
+
+// end of config file
