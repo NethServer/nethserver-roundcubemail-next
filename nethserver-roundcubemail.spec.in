@@ -40,7 +40,6 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Sun Oct 19 2014 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.0.2-1-ns6
 - Upgrade to roundcubemail 1.0.2-1 - Bug #2902 [NethServer]
-- Https is now forced
 - Config.inc.php is now templated with several files
 - Roundcubemail can be restricted to the local network,
 - open to the WWW by default (public/private) - Bug #2886 [NethServer]
