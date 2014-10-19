@@ -43,8 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 - Https is now forced
 - Config.inc.php is now templated with several files
 - Roundcubemail can be restricted to the local network,
-- open to the www by default (public/private) - Bug #2886 [NethServer]
+- open to the WWW by default (public/private) - Bug #2886 [NethServer]
 - New DB command to allow plugins in config.inc.php
+- New templates.metadata for protecting Config.inc.php (0640 root/apache)
 
 * Mon Aug 18 2014 Davide Principi <davide.principi@nethesis.it> - 1.0.1-1.ns6
 - Roundcube: installation fails - Bug #2802 [NethServer]
