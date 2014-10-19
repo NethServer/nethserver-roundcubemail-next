@@ -14,38 +14,7 @@ $config['address_book_type'] = 'sql';
 // In order to enable public ldap search, configure an array like the Verisign
 // example further below. if you would like to test, simply uncomment the example.
 // Array key must contain only safe characters, ie. a-zA-Z0-9_
-{
-  use NethServer::Directory;
-  our $pwd = NethServer::Directory::getUserPassword('roundcube', 0);
-  return "";
-}
-$rcmail_config['ldap_public']['public'] = array(
-    'name'              => 'Public LDAP Addressbook',
-    'hosts'              => array('localhost'),
-    'port'                => 389,
-    'user_specific' => false,
-    'base_dn'         => 'ou=People,dc=directory,dc=nh',
-    'bind_dn'          => 'cn=roundcube,dc=directory,dc=nh',
-    'bind_pass'      => '{{$pwd}}',
-    'filter'              => '(objectClass=inetOrgPerson)',
-    'groups'           => array(
-        'base_dn'           => '',
-        'filter'                 => '(objectClass=posixGroup)',
-        'object_classes' => array("top", "posixGroup"),
-        'member_attr'  => 'uid',
-  ),
-  'fieldmap' => array(
-    'name'        => 'cn',
-    'surname'     => 'sn',
-    'firstname'   => 'givenName',
-    'jobtitle'    => 'title',
-    'email'       => 'mail:*',
-    'locality'    => 'l',
-    'organization' => 'o',
-    'department'   => 'ou',
-  )
-);
-
+$config['ldap_public'] = array();
 
 // If you are going to use LDAP for individual address books, you will need to 
 // set 'user_specific' to true and use the variables to generate the appropriate DNs to access it.
