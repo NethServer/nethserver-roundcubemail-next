@@ -10,7 +10,7 @@ BuildRequires: nethserver-devtools
 
 AutoReq: no
 Requires: nethserver-httpd, nethserver-mysql
-Requires: roundcubemail
+Requires: roundcubemail >= 1.0.0
 
 %description
 NethServer configuration for Roundcube mail client
@@ -38,6 +38,14 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Sun Oct 19 2014 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.0.2-1-ns6
+- Upgrade to roundcubemail 1.0.2-1 - Bug #2902 [NethServer]
+- Https is now forced
+- Config.inc.php is now templated with several files
+- Roundcubemail can be restricted to the local network,
+- open to the www by default (public/private) - Bug #2886 [NethServer]
+- New DB command to allow plugins in config.inc.php
+
 * Mon Aug 18 2014 Davide Principi <davide.principi@nethesis.it> - 1.0.1-1.ns6
 - Roundcube: installation fails - Bug #2802 [NethServer]
 
