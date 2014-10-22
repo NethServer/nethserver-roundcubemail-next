@@ -9,7 +9,7 @@ BuildArch: noarch
 BuildRequires: nethserver-devtools
 
 AutoReq: no
-Requires: nethserver-httpd, nethserver-mysql
+Requires: nethserver-httpd, nethserver-mysql, nethserver-mail-server
 Requires: roundcubemail >= 1.0.0
 
 %description
