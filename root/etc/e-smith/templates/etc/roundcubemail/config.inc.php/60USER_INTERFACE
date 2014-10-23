@@ -1,0 +1,123 @@
+// ----------------------------------
+// USER INTERFACE
+// ----------------------------------
+
+// default messages sort column. Use empty value for default server's sorting, 
+// or 'arrival', 'date', 'subject', 'from', 'to', 'fromto', 'size', 'cc'
+$config['message_sort_col'] = '';
+
+// default messages sort order
+$config['message_sort_order'] = 'DESC';
+
+// These cols are shown in the message list. Available cols are:
+// subject, from, to, fromto, cc, replyto, date, size, status, flag, attachment, 'priority'
+$config['list_cols'] = array('subject', 'status', 'fromto', 'date', 'size', 'flag', 'attachment');
+
+// the default locale setting (leave empty for auto-detection)
+// RFC1766 formatted language name like en_US, de_DE, de_CH, fr_FR, pt_BR
+$config['language'] = null;
+
+// use this format for date display (date or strftime format)
+$config['date_format'] = 'Y-m-d';
+
+// give this choice of date formats to the user to select from
+// Note: do not use ambiguous formats like m/d/Y
+$config['date_formats'] = array('Y-m-d', 'Y/m/d', 'Y.m.d', 'd-m-Y', 'd/m/Y', 'd.m.Y', 'j.n.Y');
+
+// use this format for time display (date or strftime format)
+$config['time_format'] = 'H:i';
+
+// give this choice of time formats to the user to select from
+$config['time_formats'] = array('G:i', 'H:i', 'g:i a', 'h:i A');
+
+// use this format for short date display (derived from date_format and time_format)
+$config['date_short'] = 'D H:i';
+
+// use this format for detailed date/time formatting (derived from date_format and time_format)
+$config['date_long'] = 'Y-m-d H:i';
+
+// store draft message is this mailbox
+// leave blank if draft messages should not be stored
+// NOTE: Use folder names with namespace prefix (INBOX. on Courier-IMAP)
+$config['drafts_mbox'] = 'Drafts';
+
+// store spam messages in this mailbox
+// NOTE: Use folder names with namespace prefix (INBOX. on Courier-IMAP)
+$config['junk_mbox'] = 'Junk';
+
+// store sent message is this mailbox
+// leave blank if sent messages should not be stored
+// NOTE: Use folder names with namespace prefix (INBOX. on Courier-IMAP)
+$config['sent_mbox'] = 'Sent';
+
+// move messages to this folder when deleting them
+// leave blank if they should be deleted directly
+// NOTE: Use folder names with namespace prefix (INBOX. on Courier-IMAP)
+$config['trash_mbox'] = 'Trash';
+
+// display these folders separately in the mailbox list.
+// these folders will also be displayed with localized names
+// NOTE: Use folder names with namespace prefix (INBOX. on Courier-IMAP)
+$config['default_folders'] = array('INBOX', 'Drafts', 'Sent', 'Junk', 'Trash');
+
+// automatically create the above listed default folders on first login
+$config['create_default_folders'] = false;
+
+// protect the default folders from renames, deletes, and subscription changes
+$config['protect_default_folders'] = true;
+
+// if in your system 0 quota means no limit set this option to true 
+$config['quota_zero_as_unlimited'] = false;
+
+// Make use of the built-in spell checker. It is based on GoogieSpell.
+// Since Google only accepts connections over https your PHP installatation
+// requires to be compiled with Open SSL support
+$config['enable_spellcheck'] = true;
+
+// Enables spellchecker exceptions dictionary.
+// Setting it to 'shared' will make the dictionary shared by all users.
+$config['spellcheck_dictionary'] = false;
+
+// Set the spell checking engine. 'googie' is the default. 'pspell' is also available,
+// but requires the Pspell extensions. When using Nox Spell Server, also set 'googie' here.
+$config['spellcheck_engine'] = 'googie';
+
+// For a locally installed Nox Spell Server, please specify the URI to call it.
+// Get Nox Spell Server from http://orangoo.com/labs/?page_id=72
+// Leave empty to use the Google spell checking service, what means
+// that the message content will be sent to Google in order to check spelling
+$config['spellcheck_uri'] = '';
+
+// These languages can be selected for spell checking.
+// Configure as a PHP style hash array: array('en'=>'English', 'de'=>'Deutsch');
+// Leave empty for default set of available language.
+$config['spellcheck_languages'] = NULL;
+
+// Makes that words with all letters capitalized will be ignored (e.g. GOOGLE)
+$config['spellcheck_ignore_caps'] = false;
+
+// Makes that words with numbers will be ignored (e.g. g00gle)
+$config['spellcheck_ignore_nums'] = false;
+
+// Makes that words with symbols will be ignored (e.g. g@@gle)
+$config['spellcheck_ignore_syms'] = false;
+
+// Use this char/string to separate recipients when composing a new message
+$config['recipients_separator'] = ',';
+
+// don't let users set pagesize to more than this value if set
+$config['max_pagesize'] = 200;
+
+// Minimal value of user's 'refresh_interval' setting (in seconds)
+$config['min_refresh_interval'] = 60;
+
+// Enables files upload indicator. Requires APC installed and enabled apc.rfc1867 option.
+// By default refresh time is set to 1 second. You can set this value to true
+// or any integer value indicating number of seconds.
+$config['upload_progress'] = false;
+
+// Specifies for how many seconds the Undo button will be available
+// after object delete action. Currently used with supporting address book sources.
+// Setting it to 0, disables the feature.
+$config['undo_timeout'] = 0;
+
