@@ -19,10 +19,6 @@ NethServer configuration for Roundcube mail client
 %setup
 
 %post
-##Mysql DB Upgrade
-if [ $1 -gt 1 ] ; then
-/usr/share/roundcubemail/bin/updatedb.sh --dir /usr/share/roundcubemail/SQL/ --package mysql.initial.sql &> /dev/null
-fi
 
 %preun
 

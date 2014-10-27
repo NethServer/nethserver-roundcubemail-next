@@ -31,6 +31,11 @@ use NethServer::Directory;
 
 NethServer::Directory->new()->configServiceAccount('roundcube', NethServer::Directory::FIELDS_READ) || die("Failed to register roundcube service account");
 
+## Test if the roudcubemail Mysql DB exists, if yes, then upgrade it
+     if ( -d '/var/lib/mysql/roundcubemail') {
+        system ('/usr/share/roundcubemail/bin/updatedb.sh --dir /usr/share/roundcubemail/SQL/ --package mysql.initial.sql &> /dev/null');
+     }
+
 ##test if the mysql db is created, if not then the user and the mysql db are created
      if ( ! -d '/var/lib/mysql/roundcubemail') {
 my $password = NethServer::Password::store('roundcubemail') || die('Could not generate roundcubemail password!');
