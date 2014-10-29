@@ -38,6 +38,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Sat Oct 25 2014 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.0.3-1-ns6
+- Added a LDAP AddressBook : Giacomo Sanchietti <giacomo.sanchietti@nethesis.it>
+
 * Sun Oct 19 2014 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.0.2-1-ns6
 - Upgrade to roundcubemail 1.0.2-1 - Bug #2902 [NethServer]
 - Config.inc.php is now templated with several files
