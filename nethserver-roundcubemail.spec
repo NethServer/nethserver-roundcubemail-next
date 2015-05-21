@@ -28,6 +28,7 @@ rm -rf %{buildroot}
 %files -f %{version}-%{release}-filelist
 %defattr(-,root,root)
 %doc COPYING
+%dir %{_nseventsdir}/%{name}-update
 
 %changelog
 * Wed Nov 12 2014 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.1.0-1.ns6
