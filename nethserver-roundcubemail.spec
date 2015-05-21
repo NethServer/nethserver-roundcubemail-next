@@ -1,16 +1,15 @@
 Summary: NethServer configuration for Roundcube mail client
 Name: nethserver-roundcubemail
-Version: @@VERSION@@
-Release: @@RELEASE@@
+Version: 1.1.0
+Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
 BuildArch: noarch
 
 BuildRequires: nethserver-devtools
 
-AutoReq: no
 Requires: nethserver-httpd, nethserver-mysql, nethserver-mail-server
-Requires: roundcubemail >= 1.0.0
+Requires: roundcubemail
 
 %description
 NethServer configuration for Roundcube mail client
@@ -18,24 +17,17 @@ NethServer configuration for Roundcube mail client
 %prep
 %setup
 
-%post
-
-%preun
-
 %build
 perl createlinks
 
 %install
-rm -rf $RPM_BUILD_ROOT
-(cd root   ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
+rm -rf %{buildroot}
+(cd root   ; find . -depth -print | cpio -dump %{buildroot})
+%{genfilelist} %{buildroot} > %{version}-%{release}-filelist
 
-%{genfilelist} $RPM_BUILD_ROOT > e-smith-%{version}-filelist
-
-%clean 
-rm -rf $RPM_BUILD_ROOT
-
-%files -f e-smith-%{version}-filelist
+%files -f %{version}-%{release}-filelist
 %defattr(-,root,root)
+%doc COPYING
 
 %changelog
 * Wed Nov 12 2014 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.1.0-1.ns6
