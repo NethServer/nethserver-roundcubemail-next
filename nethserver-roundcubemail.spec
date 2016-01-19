@@ -1,6 +1,6 @@
 Summary: NethServer configuration for Roundcube mail client
 Name: nethserver-roundcubemail
-Version: 1.1.0
+Version: 1.1.1
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -9,7 +9,7 @@ BuildArch: noarch
 BuildRequires: nethserver-devtools
 
 Requires: nethserver-httpd, nethserver-mysql, nethserver-mail-server
-Requires: roundcubemail
+Requires: roundcubemail, php-mysql
 
 %description
 NethServer configuration for Roundcube mail client
@@ -31,6 +31,9 @@ rm -rf %{buildroot}
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Tue Nov 10 2015 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.1.1-1
+- Roundcube install fail - php-mysql not installed - Bug #3309 [NethServer]
+
 * Wed Nov 12 2014 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.1.0-1.ns6
 - Upgrade Roundcubemail to the current version of epel   - Enhancement #2902 [NethServer]
 - Roundcube webmail access from the Internet - Enhancement #2886 [NethServer]
