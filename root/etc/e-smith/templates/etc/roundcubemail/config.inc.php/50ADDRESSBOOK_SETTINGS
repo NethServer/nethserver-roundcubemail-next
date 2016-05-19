@@ -29,19 +29,31 @@
 // So the base_dn would be uid=%fu,ou=people,o=root
 // The bind_dn would be the same as based_dn or some super user login.
 {
-  use NethServer::Password;
-  our $pwd = NethServer::Password::store('roundcube');
-  return "";
-}
-$config['ldap_public']['public'] = array(
+  use NethServer::SSSD;
+  our $sssd = new NethServer::SSSD();
+  our $host = $sssd->host();
+  our $bindDN = $sssd->bindDN();
+  our $bindPass = $sssd->bindPassword();
+  our $userDN = $sssd->userDN();
+  our $userFilter = 'user'; 
+
+$OUT .= <<EOF
+\$config['ldap_public']['public'] = array(
     'name'                   => 'Public LDAP Addressbook',
-    'hosts'                  => array('localhost'),
+    'hosts'                  => array('$host'),
     'port'                   => 389,
     'user_specific'          => false,
-    'base_dn'                => 'ou=People,dc=directory,dc=nh',
-    'bind_dn'                => 'cn=roundcube,dc=directory,dc=nh',
-    'bind_pass'              => '{{$pwd}}',
-    'filter'                 => '(objectClass=inetOrgPerson)',
+    'base_dn'                => '$userDN',
+    'bind_dn'                => '$bindDN',
+    'bind_pass'              => '$bindPass',
+    'filter'                 => '(objectClass=$userFilter)',
+EOF
+
+}
+
+{
+if ($sssd->isLdap()) {
+$OUT .= <<EOD
     'search_fields'          => array('mail','cn'),
     'fuzzy_search'           => true,
     'groups'                 => array(
@@ -61,8 +73,22 @@ $config['ldap_public']['public'] = array(
     'department'   => 'ou',
     'phone'        => 'telephoneNumber',
     'street'       => 'street',
-  )
-);
+  ));
+EOD
+}
+}
+
+{
+if ($sssd->isAD()) {
+$OUT .= <<EOL
+'search_fields'          => array('userPrincipalName','displayName'),
+'fieldmap' => array(
+    'name'         => 'displayName',
+    'email'        => 'userPrincipalName',
+  ));
+EOL
+}
+}
 
 // An ordered array of the ids of the addressbooks that should be searched
 // when populating address autocomplete fields server-side. ex: array('sql','Verisign');
