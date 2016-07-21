@@ -1,6 +1,6 @@
 Summary: NethServer configuration for Roundcube mail client
 Name: nethserver-roundcubemail
-Version: 1.2.0
+Version: 1.2.1
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -31,6 +31,9 @@ rm -rf %{buildroot}
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Thu Jul 21 2016 Davide Principi <davide.principi@nethesis.it> - 1.2.1-1
+- First install of roundcube gives template error - Bug NethServer/dev#5053
+
 * Thu Jul 07 2016 Stefano Fancello <stefano.fancello@nethesis.it> - 1.2.0-1
 - First NS7 release
 
