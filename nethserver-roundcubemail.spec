@@ -1,6 +1,6 @@
 Summary: NethServer configuration for Roundcube mail client
 Name: nethserver-roundcubemail
-Version: 1.1.1
+Version: 1.1.2
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -30,6 +30,9 @@ rm -rf %{buildroot}
 %doc COPYING
 
 %changelog
+* Wed Aug 24 2016 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.1.2-1
+- Missing Roundcube disclaimer - Bug #3417
+
 * Tue Nov 10 2015 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.1.1-1
 - Roundcube install fail - php-mysql not installed - Bug #3309 [NethServer]
 
