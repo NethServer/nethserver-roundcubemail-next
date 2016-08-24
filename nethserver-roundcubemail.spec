@@ -1,6 +1,6 @@
 Summary: NethServer configuration for Roundcube mail client
 Name: nethserver-roundcubemail
-Version: 1.2.1
+Version: 1.2.2
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -31,6 +31,9 @@ rm -rf %{buildroot}
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Wed Aug 24 2016 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.2.2-1
+- Missing Roundcube disclaimer - Bug NethServer/dev#5075
+
 * Thu Jul 21 2016 Davide Principi <davide.principi@nethesis.it> - 1.2.1-1
 - First install of roundcube gives template error - Bug NethServer/dev#5053
 
