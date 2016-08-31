@@ -5,11 +5,6 @@
 Alias /roundcubemail /usr/share/roundcubemail
 Alias /webmail /usr/share/roundcubemail
 
-RewriteEngine On
-RewriteRule ^/webmail(/.*)?\$ https://%{HTTP_HOST}/webmail\$1 [R=301,L]
-RewriteRule ^/roundcubemail(/.*)?\$ https://%{HTTP_HOST}/roundcubemail\$1 [R=301,L]
-
-
 <Directory /usr/share/roundcubemail/>
     <IfModule mod_authz_core.c>
         # Apache 2.4
