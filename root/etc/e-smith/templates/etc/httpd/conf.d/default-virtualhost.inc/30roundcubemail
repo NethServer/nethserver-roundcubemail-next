@@ -1,4 +1,4 @@
 RewriteEngine On
-RewriteRule ^/webmail(/.*)?\$ https://%{HTTP_HOST}/webmail\$1 [R=301,L]
-RewriteRule ^/roundcubemail(/.*)?\$ https://%{HTTP_HOST}/roundcubemail\$1 [R=301,L]
+RewriteRule ^/webmail(/.*)?\$ https://%\{HTTP_HOST\}/webmail\$1 [R=301,L]
+RewriteRule ^/roundcubemail(/.*)?\$ https://%\{HTTP_HOST\}/roundcubemail\$1 [R=301,L]
 
