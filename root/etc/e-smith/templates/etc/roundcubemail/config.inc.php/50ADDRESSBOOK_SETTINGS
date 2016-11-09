@@ -37,6 +37,10 @@
   our $userDN = $sssd->userDN();
   our $userFilter = 'user'; 
 
+if ($sssd->isLdap()) {
+  $userFilter = 'inetOrgPerson';
+}
+
 if ($host) {
 $OUT .= <<EOF
 \$config['ldap_public']['public'] = array(
