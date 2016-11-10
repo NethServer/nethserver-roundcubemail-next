@@ -1,6 +1,6 @@
 Summary: NethServer configuration for Roundcube mail client
 Name: nethserver-roundcubemail
-Version: 1.2.3
+Version: 1.2.4
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -31,6 +31,9 @@ rm -rf %{buildroot}
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Thu Nov 10 2016 Davide Principi <davide.principi@nethesis.it> - 1.2.4-1
+- Roundcube: no LDAP addressbook with OpenLDAP - Bug NethServer/dev#5146
+
 * Thu Sep 01 2016 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.2.3-1
 - Apache vhost-default template expansion - NethServer/dev#5088
 
