@@ -113,7 +113,7 @@ $config['des_key'] = 'HoxQsvEI3krHf3P98yDWDz0Y';
 // %d - domain (http hostname $_SERVER['HTTP_HOST'] without the first part)
 // %z - IMAP domain (IMAP hostname without the first part)
 // For example %n = mail.domain.tld, %t = domain.tld
-$config['username_domain'] = '';
+$config['username_domain'] = '{{ $DomainName }}';
 
 // This domain will be used to form e-mail addresses of new users
 // Specify an array with 'host' => 'domain' values to support multiple hosts
