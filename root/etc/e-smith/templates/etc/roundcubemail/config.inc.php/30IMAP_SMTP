@@ -14,10 +14,11 @@
 // For example %n = mail.domain.tld, %t = domain.tld
 // WARNING: After hostname change update of mail_host column in users table is
 //          required to match old user data records with the new host.
-{
-    my $server = $roundcubemail{'Server'} || 'localhost';
-    $OUT.="\$config['default_host'] = '$server';\n";
-}
+$config['default_host'] = array(
+    '{ $roundcubemail{'Server'} || 'localhost' }' => '{ $DomainName }',
+    '127.0.0.1' => 'Local'
+);
+
 // TCP port used for IMAP connections
 $config['default_port'] = 143;
 
