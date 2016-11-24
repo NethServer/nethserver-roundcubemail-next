@@ -32,34 +32,38 @@
   use NethServer::SSSD;
   our $sssd = new NethServer::SSSD();
   our $host = $sssd->host();
+  our $ldapURI = $sssd->ldapURI();
+  our $port = $sssd->port();
+  our $usetls = 'false';
   our $bindDN = $sssd->bindDN();
   our $bindPass = $sssd->bindPassword();
   our $userDN = $sssd->userDN();
   our $userFilter = 'user'; 
+  our $quotedBindPass = $bindPass; $quotedBindPass =~ s/\'/\\'/g;
 
 if ($sssd->isLdap()) {
   $userFilter = 'inetOrgPerson';
 }
 
-if ($host) {
-$OUT .= <<EOF
+if( ! $sssd->isLocalProvider() && $ldapURI !~ /^ldaps/) {
+    $usetls = 'true';
+}
+
+$OUT .= <<EOF;
 \$config['ldap_public']['public'] = array(
     'name'                   => 'Public LDAP Addressbook',
-    'hosts'                  => array('$host'),
-    'port'                   => 389,
+    'hosts'                  => array('$ldapURI'),
+    'port'                   => $port,
+    'use_tls'                => $usetls,
     'user_specific'          => false,
     'base_dn'                => '$userDN',
     'bind_dn'                => '$bindDN',
-    'bind_pass'              => '$bindPass',
+    'bind_pass'              => '$quotedBindPass',
     'filter'                 => '(objectClass=$userFilter)',
 EOF
-}
 
-}
-
-{
 if ($sssd->isLdap()) {
-$OUT .= <<EOD
+$OUT .= <<EOD;
     'search_fields'          => array('mail','cn'),
     'fuzzy_search'           => true,
     'groups'                 => array(
@@ -82,11 +86,9 @@ $OUT .= <<EOD
   ));
 EOD
 }
-}
 
-{
 if ($sssd->isAD()) {
-$OUT .= <<EOL
+$OUT .= <<EOL;
 'search_fields'          => array('userPrincipalName','displayName'),
 'fieldmap' => array(
     'name'         => 'displayName',
