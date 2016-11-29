@@ -38,12 +38,7 @@
   our $bindDN = $sssd->bindDN();
   our $bindPass = $sssd->bindPassword();
   our $userDN = $sssd->userDN();
-  our $userFilter = 'user'; 
   our $quotedBindPass = $bindPass; $quotedBindPass =~ s/\'/\\'/g;
-
-if ($sssd->isLdap()) {
-  $userFilter = 'inetOrgPerson';
-}
 
 if( ! $sssd->isLocalProvider() && $ldapURI !~ /^ldaps/) {
     $usetls = 'true';
@@ -59,11 +54,11 @@ $OUT .= <<EOF;
     'base_dn'                => '$userDN',
     'bind_dn'                => '$bindDN',
     'bind_pass'              => '$quotedBindPass',
-    'filter'                 => '(objectClass=$userFilter)',
 EOF
 
 if ($sssd->isLdap()) {
 $OUT .= <<EOD;
+    'filter'                 => '(objectClass=inetOrgPerson)',
     'search_fields'          => array('mail','cn'),
     'fuzzy_search'           => true,
     'groups'                 => array(
@@ -89,6 +84,7 @@ EOD
 
 if ($sssd->isAD()) {
 $OUT .= <<EOL;
+'filter'                 => '(&(objectClass=user)(objectCategory=person)(!(isCriticalSystemObject=TRUE)))',
 'search_fields'          => array('userPrincipalName','displayName'),
 'fieldmap' => array(
     'name'         => 'displayName',
