@@ -40,7 +40,7 @@
   our $userDN = $sssd->userDN();
   our $quotedBindPass = $bindPass; $quotedBindPass =~ s/\'/\\'/g;
 
-if( ! $sssd->isLocalProvider() && $ldapURI !~ /^ldaps/) {
+if($sssd->startTls()) {
     $usetls = 'true';
 }
 
