@@ -54,6 +54,7 @@ $OUT .= <<EOF;
     'base_dn'                => '$userDN',
     'bind_dn'                => '$bindDN',
     'bind_pass'              => '$quotedBindPass',
+    'scope'                  => 'sub',
 EOF
 
 if ($sssd->isLdap()) {
@@ -78,20 +79,37 @@ $OUT .= <<EOD;
     'department'   => 'ou',
     'phone'        => 'telephoneNumber',
     'street'       => 'street',
-  ));
+  ),
 EOD
 }
 
 if ($sssd->isAD()) {
 $OUT .= <<EOL;
-'filter'                 => '(&(objectClass=user)(objectCategory=person)(!(isCriticalSystemObject=TRUE)))',
-'search_fields'          => array('userPrincipalName','displayName'),
-'fieldmap' => array(
-    'name'         => 'displayName',
-    'email'        => 'userPrincipalName',
-  ));
+    'filter'                 => '(&(objectClass=user)(objectCategory=person)(!(isCriticalSystemObject=TRUE)))',
+    'search_fields'          => array('mail', 'cn', 'sAMAccountName', 'displayname', 'sn', 'givenName', 'userPrincipalName'),
+    'fuzzy_search'           => true,
+    'sort'                   => 'cn',
+    'fieldmap' => array(
+        'name'        => 'cn',
+        'surname'     => 'sn',
+        'firstname'   => 'givenName',
+        'title'       => 'title',
+        'email:account' => 'userPrincipalName',
+        'email:extra'   => 'mail:*',
+        'phone:work'  => 'telephoneNumber',
+        'phone:mobile' => 'mobile',
+        'phone:workfax' => 'facsimileTelephoneNumber',
+        'street'      => 'street',
+        'zipcode'     => 'postalCode',
+        'locality'    => 'l',
+        'department'  => 'departmentNumber',
+        'notes'       => 'description',
+        'photo'       => 'jpegPhoto',
+    ),
 EOL
 }
+
+$OUT .= "); // end of 'public' addressbook definition";
 }
 
 // An ordered array of the ids of the addressbooks that should be searched
