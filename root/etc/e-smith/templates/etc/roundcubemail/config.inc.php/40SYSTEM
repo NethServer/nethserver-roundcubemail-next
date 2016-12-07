@@ -39,13 +39,13 @@ $config['message_cache_lifetime'] = '10d';
 // enforce connections over https
 // with this option enabled, all non-secure connections will be redirected.
 // set the port for the ssl connection as value of this option if it differs from the default 443
-$config['force_https'] = true;
+$config['force_https'] = false;
 
 // tell PHP that it should work as under secure connection
 // even if it doesn't recognize it as secure ($_SERVER['HTTPS'] is not set)
 // e.g. when you're running Roundcube behind a https proxy
 // this option is mutually exclusive to 'force_https' and only either one of them should be set to true.
-$config['use_https'] = false;
+$config['use_https'] = true;
 
 // Allow browser-autocompletion on login form.
 // 0 - disabled, 1 - username and host only, 2 - username, host, password
