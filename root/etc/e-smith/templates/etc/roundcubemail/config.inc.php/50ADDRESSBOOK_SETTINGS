@@ -55,6 +55,7 @@ $OUT .= <<EOF;
     'bind_dn'                => '$bindDN',
     'bind_pass'              => '$quotedBindPass',
     'scope'                  => 'sub',
+    'referrals'              => 0,
 EOF
 
 if ($sssd->isLdap()) {
