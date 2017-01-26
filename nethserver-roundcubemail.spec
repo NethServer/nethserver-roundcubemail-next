@@ -1,6 +1,6 @@
 Summary: NethServer configuration for Roundcube mail client
 Name: nethserver-roundcubemail
-Version: 1.2.5
+Version: 1.2.6
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -31,6 +31,9 @@ rm -rf %{buildroot}
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Thu Jan 26 2017 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.2.6-1
+- Cleanup: remove deprecated events - nethserver-roundcubemail#9
+
 * Thu Dec 15 2016 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.2.5-1
 - Roundcube duplicate accounts with short legacy format - Bug NethServer/dev#5151
 - Enable LDAPs protocol on Active Directory clients - NethServer/dev#5161
