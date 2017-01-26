@@ -39,37 +39,10 @@ event_services($event, 'httpd' => 'reload');
 
 
 #--------------------------------------------------
-# actions for interface-update event
+# actions for trusted-networks-modify event
 #--------------------------------------------------
 
-$event = "interface-update";
+$event = "trusted-networks-modify";
 
 templates2events("/etc/httpd/conf.d/roundcubemail.conf", $event);
-
-#--------------------------------------------------
-# actions for network-create event
-#--------------------------------------------------
-
-$event = "network-create";
-
-templates2events("/etc/httpd/conf.d/roundcubemail.conf", $event);
-
-#--------------------------------------------------
-# actions for network-delete event
-#--------------------------------------------------
-
-$event = "network-delete";
-
-templates2events("/etc/httpd/conf.d/roundcubemail.conf", $event);
-
-
-#--------------------------------------------------
-# actions for network-modify event
-#--------------------------------------------------
-
-$event = "network-modify";
-
-templates2events("/etc/httpd/conf.d/roundcubemail.conf", $event);
-
-
-exit;
+event_services($event, 'httpd' => 'reload');
