@@ -1,0 +1,10 @@
+{
+    #
+    # issue5304.ns7 -- fix roundcube access prop
+    #
+
+    my $access = $DB->get_prop('roundcubemail', 'access') || '';
+    if( $access eq 'green,red' ) {
+        $DB->set_prop('roundcubemail', 'access', 'public');
+    }
+}
