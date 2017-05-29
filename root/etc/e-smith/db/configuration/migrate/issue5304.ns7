@@ -4,7 +4,7 @@
     #
 
     my $access = $DB->get_prop('roundcubemail', 'access') || '';
-    if( grep { $_ eq 'red' } split(/,/, $access)) {
+    if( $access eq 'green,red' ) {
         $DB->set_prop('roundcubemail', 'access', 'public');
     }
 }
