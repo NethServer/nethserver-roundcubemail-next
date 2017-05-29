@@ -1,6 +1,6 @@
 Summary: NethServer configuration for Roundcube mail client
 Name: nethserver-roundcubemail
-Version: 1.2.7
+Version: 1.2.8
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -31,6 +31,9 @@ rm -rf %{buildroot}
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Mon May 29 2017 Davide Principi <davide.principi@nethesis.it> - 1.2.8-1
+- Roundcube web access permission error - Bug NethServer/dev#5304
+
 * Mon May 22 2017 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.2.7-1
 - Default userPrincipalName is not an email address - Bug NethServer/dev#5284
 
