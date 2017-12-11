@@ -30,7 +30,7 @@ $config['user_aliases'] = false;
 $config['log_dir'] = '/var/log/roundcubemail/';
 
 // use this folder to store temp files (must be writeable for apache user)
-$config['temp_dir'] = '$\{_tmppath\}';
+$config['temp_dir'] = '/var/tmp/';
 
 // lifetime of message cache
 // possible units: s, m, h, d, w
