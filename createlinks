@@ -46,3 +46,14 @@ $event = "trusted-networks-modify";
 
 templates2events("/etc/httpd/conf.d/roundcubemail.conf", $event);
 event_services($event, 'httpd' => 'reload');
+
+
+#--------------------------------------------------
+# actions for nethserver-sssd-save event
+#--------------------------------------------------
+
+my $event = "nethserver-sssd-save";
+
+templates2events("/etc/roundcubemail/config.inc.php",  $event);
+event_services($event, 'httpd' => 'reload');
+
