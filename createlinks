@@ -55,5 +55,4 @@ event_services($event, 'httpd' => 'reload');
 my $event = "nethserver-sssd-save";
 
 templates2events("/etc/roundcubemail/config.inc.php",  $event);
-event_services($event, 'httpd' => 'reload');
 
