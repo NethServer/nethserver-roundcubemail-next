@@ -1,6 +1,6 @@
 Summary: NethServer configuration for Roundcube mail client
 Name: nethserver-roundcubemail
-Version: 1.2.9
+Version: 1.2.10
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -31,6 +31,11 @@ rm -rf %{buildroot}
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Thu Oct 11 2018 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.2.10-1
+- Merge pull request #13 from stephdl/saveEvent 
+- NethServer/dev#5600
+- Roundcubemail subscribed to nethserver-sssd-save
+
 * Tue Dec 12 2017 Davide Principi <davide.principi@nethesis.it> - 1.2.9-1
 - Mails sent without attachments - Bug NethServer/dev#5397
 
