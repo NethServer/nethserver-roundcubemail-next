@@ -1,6 +1,6 @@
 Summary: NethServer configuration for Roundcube mail client
 Name: nethserver-roundcubemail
-Version: 1.2.10
+Version: 1.3.0
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -31,6 +31,9 @@ rm -rf %{buildroot}
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Fri Feb 01 2019 Davide Principi <davide.principi@nethesis.it> - 1.3.0-1
+- SMTP sender/login validation - NethServer/dev#5672
+
 * Thu Oct 11 2018 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.2.10-1
 - Merge pull request #13 from stephdl/saveEvent 
 - NethServer/dev#5600
