@@ -1,6 +1,6 @@
 Summary: NethServer configuration for Roundcube mail client
 Name: nethserver-roundcubemail
-Version: 1.3.1
+Version: 1.3.2
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -41,6 +41,9 @@ cp -a api/* %{buildroot}/usr/libexec/nethserver/api/%{name}/
 %dir %{_nseventsdir}/%{name}-update
 
 %changelog
+* Tue Sep 03 2019 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.3.2-1
+- Cockpit. List correct application version - Nethserver/dev#5819
+
 * Tue Jul 09 2019 Davide Principi <davide.principi@nethesis.it> - 1.3.1-1
 - Cockpit legacy apps implementation - NethServer/dev#5782
 
