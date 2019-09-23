@@ -33,7 +33,7 @@ cp -a logo.png %{buildroot}/usr/share/cockpit/%{name}/
 cp -a %{name}.json %{buildroot}/usr/share/cockpit/nethserver/applications/
 cp -a api/* %{buildroot}/usr/libexec/nethserver/api/%{name}/
 
-%{genfilelist} %{buildroot} > %{version}-%{release}-filelist
+%{genfilelist} %{buildroot} --file /etc/sudoers.d/50_nsapi_nethserver_roundcubemail 'attr(0440,root,root)' > %{version}-%{release}-filelist
 
 %files -f %{version}-%{release}-filelist
 %defattr(-,root,root)
