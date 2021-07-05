@@ -6,7 +6,7 @@
 $config['default_charset'] = 'ISO-8859-1';
 
 // skin name: folder from skins/
-$config['skin'] = 'larry';
+$config['skin'] = '{$roundcubemail{'skin'} || 'larry'}';
 
 // show up to X items in messages list view
 $config['mail_pagesize'] = 50;

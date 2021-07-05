@@ -19,13 +19,14 @@ Available properites:
 * ``PluginsList``: comma separated list of enabled plugins, default is ``managesieve,markasjunk``.
   Before adding an option to this property, please be sure the plugin is already installed.
   A list of bundled plugins can be found inside file:``/usr/share/roundcubemail/plugins`` directory.
-
+* ``skin``:  default is ``larry`` other skins can be found in ``/usr/share/roundcubemail/skins``
 Example: ::
 
  roundcubemail=configuration
     PluginsList=managesieve,markasjunk
     Server=localhost
     access=private
+    skin=larry
 
 
 Configuration can be applied using the ``nethserver-roundcubemail-update`` event.
