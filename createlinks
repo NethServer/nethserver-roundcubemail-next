@@ -36,6 +36,7 @@ templates2events("/etc/httpd/conf.d/roundcubemail.conf",  $event);
 templates2events("/etc/httpd/conf.d/default-virtualhost.inc",  $event);
 templates2events("./etc/roundcubemail/config.inc.php",  $event);
 event_services($event, 'httpd' => 'reload');
+event_services($event, 'rh-php73-php-fpm' => 'restart');
 
 
 #--------------------------------------------------
