@@ -9,7 +9,9 @@ BuildArch: noarch
 BuildRequires: nethserver-devtools
 
 Requires: nethserver-httpd, nethserver-mysql, nethserver-mail-server
-Requires: roundcubemail, php-mysql
+Requires: roundcubemail
+Requires: nethserver-rh-php73-php-fpm
+Requires: rh-php73-php-pspell
 
 %description
 NethServer configuration for Roundcube mail client
