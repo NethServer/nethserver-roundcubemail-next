@@ -29,8 +29,9 @@ use NethServer::Password;
 
 
 ## Test if the roudcubemail Mysql DB exists, if yes, then upgrade it
+## see Upgrading https://github.com/roundcube/roundcubemail/blob/master/UPGRADING
      if ( -d '/var/lib/mysql/roundcubemail') {
-        system ('/usr/share/roundcubemail/bin/updatedb.sh --dir /usr/share/roundcubemail/SQL/ --package mysql.initial.sql &> /dev/null');
+        system ('/usr/share/roundcubemail/bin/updatedb.sh --dir=/usr/share/roundcubemail/SQL --package=roundcube');
      }
 
 ##test if the mysql db is created, if not then the user and the mysql db are created
