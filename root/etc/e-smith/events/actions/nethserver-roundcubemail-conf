@@ -44,8 +44,6 @@ my $commands = join("\n",
 	      "CREATE DATABASE IF NOT EXISTS roundcubemail DEFAULT CHARACTER SET = 'utf8';"
      ) . "\n";
 
-print $commands;
-
 open(FH, '|-', '/usr/bin/mysql -B -f') || die("[ERROR] Could not connect to mysql");
 print FH $commands;     
 close(FH);
