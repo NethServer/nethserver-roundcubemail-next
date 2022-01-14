@@ -15,10 +15,11 @@ BuildArch: noarch
 
 BuildRequires: nethserver-devtools
 
-Requires: nethserver-httpd, nethserver-mysql, nethserver-mail-server
+Requires: nethserver-httpd, nethserver-mail-server
 Obsoletes: roundcubemail
 Requires: nethserver-rh-php73-php-fpm
 Requires: rh-php73-php-pspell
+Requires: nethserver-rh-mariadb105 rh-mariadb105-mariadb-server-utils
 
 %description
 NethServer configuration for Roundcube mail client
@@ -42,7 +43,11 @@ cp -a logo.png %{buildroot}/usr/share/cockpit/%{name}/
 cp -a %{name}.json %{buildroot}/usr/share/cockpit/nethserver/applications/
 cp -a api/* %{buildroot}/usr/libexec/nethserver/api/%{name}/
 
-%{genfilelist} %{buildroot} --file /etc/sudoers.d/50_nsapi_nethserver_roundcubemail 'attr(0440,root,root)' > %{version}-%{release}-filelist
+mkdir -p %{buildroot}/var/opt/rh/rh-mariadb105/lib/mysql-roundcubemail
+
+%{genfilelist} %{buildroot} \
+    --file /etc/sudoers.d/50_nsapi_nethserver_roundcubemail 'attr(0440,root,root)' \
+    --dir /var/opt/rh/rh-mariadb105/lib/mysql-roundcubemail 'attr(0755,mysql,mysql)' > %{version}-%{release}-filelist
 
 mkdir -p %{buildroot}/etc/%{rcm_name}
 mkdir -p %{buildroot}/usr/share/%{rcm_name}
@@ -77,6 +82,7 @@ cp -a twofactor_gauthenticator-master/* %{buildroot}/usr/share/%{rcm_name}/plugi
 %dir %attr(0750,apache,apache) /var/log/%{rcm_name}
 %dir %attr(0755,root,root) %{_datadir}/%{rcm_name}/plugins/twofactor_gauthenticator
 %dir %attr(0755,root,root) /etc/%{rcm_name}
+%dir %attr(0755,mysql,mysql) /var/opt/rh/rh-mariadb105/lib/mysql-roundcubemail
 
 %changelog
 * Tue Jul 06 2021 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.5.0-1
