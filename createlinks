@@ -26,7 +26,7 @@ use esmith::Build::CreateLinks  qw(:all);
 # actions for nethserver-roundcubemail-update event
 #--------------------------------------------------
 
-my $event = "nethserver-roundcubemail-update";
+my $event = "nethserver-roundcubemail-next-update";
 
 event_actions($event, 
              'initialize-default-databases' => '00',
@@ -55,7 +55,7 @@ event_services($event, 'httpd' => 'reload');
 # actions for nethserver-sssd-save event
 #--------------------------------------------------
 
-my $event = "nethserver-sssd-save";
+$event = "nethserver-sssd-save";
 
 templates2events("/etc/roundcubemail/config.inc.php",  $event);
 

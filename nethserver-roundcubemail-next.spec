@@ -4,7 +4,7 @@
 %define rcm_name roundcubemail
 
 Summary: NethServer configuration for Roundcube mail client
-Name: nethserver-roundcubemail
+Name: nethserver-roundcubemail-next
 Version: 1.5.0
 Release: 1%{?dist}
 License: GPL
@@ -14,8 +14,8 @@ Source2: https://github.com/alexandregz/twofactor_gauthenticator/archive/master.
 BuildArch: noarch
 
 BuildRequires: nethserver-devtools
-
 Requires: nethserver-httpd, nethserver-mail-server
+Conflicts: nethserver-roundcubemail
 Obsoletes: roundcubemail
 Requires: nethserver-rh-php73-php-fpm
 Requires: rh-php73-php-pspell
