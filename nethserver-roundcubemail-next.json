@@ -1,11 +1,11 @@
 {
-  "id": "nethserver-roundcubemail",
+  "id": "nethserver-roundcubemail-next",
   "name": "Webmail",
   "summary": "Provides Webmail with RoundcubeMail for NethServer",
   "description": "Provides Webmail with RoundcubeMail for NethServer",
   "url": "",
-  "homepage": "https://github.com/NethServer/nethserver-roundcubemail",
-  "provides": ["nethserver-roundcubemail"],
+  "homepage": "https://github.com/NethServer/nethserver-roundcubemail-next",
+  "provides": ["nethserver-roundcubemail-next"],
   "release": {
     "version": "_RELEASE_"
   },
@@ -15,7 +15,7 @@
   },
   "author": {
     "name": "Edoardo Spadoni",
-    "url": "https://github.com/NethServer/nethserver-roundcubemail",
+    "url": "https://github.com/NethServer/nethserver-roundcubemail-next",
     "email": "edoardo.spadoni@nethesis.it"
   },
   "infoapi": {
