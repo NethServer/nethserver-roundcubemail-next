@@ -7,6 +7,9 @@ Alias /webmail /usr/share/roundcubemail
 
 <Directory /usr/share/roundcubemail/>
     Require { $roundcubemail{access} eq "public" ? "all granted" : "ip $localAccess" }
+    <FilesMatch .php$>
+      SetHandler "proxy:unix:/var/run/rh-php73-php-fpm/nethserver-roundcubemail-php73.sock|fcgi://localhost"
+    </FilesMatch>
 </Directory>
 
 # Define who can access the installer

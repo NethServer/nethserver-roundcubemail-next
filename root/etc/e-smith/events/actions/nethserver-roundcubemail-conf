@@ -1,7 +1,7 @@
-#!/usr/bin/perl -w
+#!/bin/bash
 
 #
-# Copyright (C) 2013 Nethesis S.r.l.
+# Copyright (C) 2022 Nethesis S.r.l.
 # http://www.nethesis.it - support@nethesis.it
 # 
 # This script is part of NethServer.
@@ -20,37 +20,100 @@
 # along with NethServer.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-package esmith;
+source /opt/rh/rh-mariadb105/enable
 
-use strict;
-use Errno;
-use esmith::util;
-use NethServer::Password;
+exitOnError () {
+    echo $1
+    exit 1
+}
 
+databaseTest () {
+    out=$(mysql --socket=/run/rh-mariadb105-mariadb/roundcubemail-mysql.sock -BN -e "select count(*) from information_schema.tables where table_type = 'BASE TABLE' and table_schema = 'roundcubemail'")
+    if [[ $((out)) -gt "0" ]]; then
+        return 1
+    else
+        return 0
+    fi
+}
 
-## Test if the roudcubemail Mysql DB exists, if yes, then upgrade it
-## see Upgrading https://github.com/roundcube/roundcubemail/blob/master/UPGRADING
-     if ( -d '/var/lib/mysql/roundcubemail') {
-        system ('/usr/share/roundcubemail/bin/updatedb.sh --dir=/usr/share/roundcubemail/SQL --package=roundcube');
-     }
+password=`perl -e "use NethServer::Password; print NethServer::Password::store('roundcubemail');"`
 
-##test if the mysql db is created, if not then the user and the mysql db are created
-     if ( ! -d '/var/lib/mysql/roundcubemail') {
-my $password = NethServer::Password::store('roundcubemail') || die('Could not generate roundcubemail password!');
+systemctl is-active --quiet rh-mariadb105-mariadb@roundcubemail
+if [[ $? -ne 0 ]]; then
+    systemctl start rh-mariadb105-mariadb@roundcubemail
+    max_wait=20
+    wait=0
+    while ! mysql --socket /run/rh-mariadb105-mariadb/roundcubemail-mysql.sock -e "SHOW DATABASES" 2>/dev/null; do
+        sleep 1
+        wait=$((wait+1))
+        if [[ $wait -ge $max_wait ]]; then
+            echo "[ERROR] Can't start rh-mariadb105-mariadb@roundcubemail"
+            exit 1
+        fi
+    done
+fi
+# verify if the db exists and if mysql is installed
+database=""
+if [[ -x '/usr/bin/mysql' ]]; then
+    database=$(/usr/bin/mysql -e "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'roundcubemail'")
+fi
 
-my $commands = join("\n", 
-	      "GRANT ALL PRIVILEGES ON `roundcubemail`.* TO 'roundcubemail'\@'localhost' IDENTIFIED BY '$password';",
-	      "FLUSH PRIVILEGES;",
-	      "CREATE DATABASE IF NOT EXISTS roundcubemail DEFAULT CHARACTER SET = 'utf8';"
-     ) . "\n";
+if [[ -n $database ]]; then
+    # we still use mariadb55, this is wrong we need rh-mariadb105
 
-open(FH, '|-', '/usr/bin/mysql -B -f') || die("[ERROR] Could not connect to mysql");
-print FH $commands;     
-close(FH);
+    tmp_sql=`mktemp`
+    trap "rm -f $tmp_sql" EXIT
 
-my @dirs = glob "/usr/share/roundcubemail*";
+    # Dump the mariadb55 roundcubemail database or exit on error
+    /usr/bin/mysqldump --databases roundcubemail > $tmp_sql
+    if [[ $? -ne 0 ]]; then
+        exitOnError "[ERROR] Error while dumping roundcubemail database from mariadb55"
+    fi
+ 
+    # We got the dump or exit on error
+    if [[ ! -f $tmp_sql ]]; then
+        exitOnError "[ERROR] There is no dumped roundcubemail database"
+    fi
+ 
+    # Create the database in rh-mariadb105 and import the dump from mariadb55 or exit on error
+    mysql --socket=/run/rh-mariadb105-mariadb/roundcubemail-mysql.sock -e "CREATE DATABASE IF NOT EXISTS roundcubemail;"
+    mysql --socket=/run/rh-mariadb105-mariadb/roundcubemail-mysql.sock --database roundcubemail < $tmp_sql
+    if [[ $? -ne 0 ]]; then
+        exitOnError "[ERROR] Error while restoring roundcubemail database to SCL mariadb105"
+    fi
+ 
+    # we need to upgrade mariadb55 to mariadb105 or exit on error 
+    # https://access.redhat.com/documentation/en-us/red_hat_software_collections/3/html/3.3_release_notes/chap-migration
+    mysql_upgrade --socket=/run/rh-mariadb105-mariadb/roundcubemail-mysql.sock --force
+    if [[ $? -ne 0 ]]; then
+        exitOnError "[ERROR] Error while upgrading roundcubemail database"
+    fi
+ 
+    # rh-mariadb105 is created,migrated,updated we can remove mariadb55 and use the socket in roundcubemail for the new database
+    # we test if the roundcubemail database from SCL is not blank or wrong
 
-system("/usr/bin/mysql roundcubemail < ".$dirs[0]."/SQL/mysql.initial.sql");
+    if  ! databaseTest ; then
+        /usr/bin/mysql -e "drop database roundcubemail;"
 
+        # Alter database for migration
+        mysql --socket=/run/rh-mariadb105-mariadb/roundcubemail-mysql.sock -e "ALTER DATABASE roundcubemail CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;"
+        mysql --socket=/run/rh-mariadb105-mariadb/roundcubemail-mysql.sock -e "grant all on roundcubemail.* to 'roundcubemail'@'localhost' identified by '$password';"
+        mysql --socket=/run/rh-mariadb105-mariadb/roundcubemail-mysql.sock -e "FLUSH PRIVILEGES"
+    fi
+else
+    # initialize grants mysql roundcubemail database
+    mysql --socket=/run/rh-mariadb105-mariadb/roundcubemail-mysql.sock -e "CREATE DATABASE IF NOT EXISTS roundcubemail;"
+    mysql --socket=/run/rh-mariadb105-mariadb/roundcubemail-mysql.sock -e "ALTER DATABASE roundcubemail CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;"
+    mysql --socket=/run/rh-mariadb105-mariadb/roundcubemail-mysql.sock -e "grant all on roundcubemail.* to 'roundcubemail'@'localhost' identified by '$password';"
+    mysql --socket=/run/rh-mariadb105-mariadb/roundcubemail-mysql.sock -e "FLUSH PRIVILEGES"
+fi
 
-exit (0);}
+# we test if the roundcubemail database from SCL is not initialized or workable
+
+if databaseTest ; then
+    # first initialization of the database
+    mysql --socket=/run/rh-mariadb105-mariadb/roundcubemail-mysql.sock --database roundcubemail < /usr/share/roundcubemail/SQL/mysql.initial.sql
+else
+    # do database update for the relevant versions
+    /opt/rh/rh-php73/root/usr/bin/php /usr/share/roundcubemail/bin/updatedb.sh --dir=/usr/share/roundcubemail/SQL --package=roundcube
+fi

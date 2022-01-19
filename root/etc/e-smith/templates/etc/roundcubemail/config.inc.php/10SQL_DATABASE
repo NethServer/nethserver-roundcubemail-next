@@ -28,7 +28,7 @@ $config = array();
 {
     use esmith::util;
     my $password = NethServer::Password::store('roundcubemail') || die('Could not generate roundcubemail password!');
-    $OUT .= "\$config['db_dsnw'] = 'mysql://roundcubemail:$password\@localhost/roundcubemail';\n";
+    $OUT .= "\$config['db_dsnw'] = 'mysql://roundcubemail:$password\@unix(/run/rh-mariadb105-mariadb/roundcubemail-mysql.sock)/roundcubemail';\n";
 }
 // postgres example: 'pgsql://roundcube:pass@localhost/roundcubemail';
 // Warning: for SQLite use absolute path in DSN:

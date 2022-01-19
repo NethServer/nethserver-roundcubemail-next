@@ -1,15 +1,25 @@
+# roundcubemail specific version
+%define rcm_version 1.5.2
+# roundcubemail specific name
+%define rcm_name roundcubemail
+
 Summary: NethServer configuration for Roundcube mail client
-Name: nethserver-roundcubemail
+Name: nethserver-roundcubemail-next
 Version: 1.5.0
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
+Source1: https://github.com/roundcube/%{rcm_name}/releases/download/%{rcm_version}/%{rcm_name}-%{rcm_version}-complete.tar.gz
+Source2: https://github.com/alexandregz/twofactor_gauthenticator/archive/master.zip
 BuildArch: noarch
 
 BuildRequires: nethserver-devtools
-
-Requires: nethserver-httpd, nethserver-mysql, nethserver-mail-server
-Requires: roundcubemail, php-mysql
+Requires: nethserver-httpd, nethserver-mail-server
+Conflicts: nethserver-roundcubemail
+Obsoletes: roundcubemail
+Requires: nethserver-rh-php73-php-fpm
+Requires: rh-php73-php-pspell
+Requires: nethserver-rh-mariadb105 rh-mariadb105-mariadb-server-utils
 
 %description
 NethServer configuration for Roundcube mail client
@@ -33,12 +43,46 @@ cp -a logo.png %{buildroot}/usr/share/cockpit/%{name}/
 cp -a %{name}.json %{buildroot}/usr/share/cockpit/nethserver/applications/
 cp -a api/* %{buildroot}/usr/libexec/nethserver/api/%{name}/
 
-%{genfilelist} %{buildroot} --file /etc/sudoers.d/50_nsapi_nethserver_roundcubemail 'attr(0440,root,root)' > %{version}-%{release}-filelist
+mkdir -p %{buildroot}/var/opt/rh/rh-mariadb105/lib/mysql-roundcubemail
+
+%{genfilelist} %{buildroot} \
+    --file /etc/sudoers.d/50_nsapi_nethserver_roundcubemail 'attr(0440,root,root)' \
+    --dir /var/opt/rh/rh-mariadb105/lib/mysql-roundcubemail 'attr(0755,mysql,mysql)' > %{version}-%{release}-filelist
+
+mkdir -p %{buildroot}/etc/%{rcm_name}
+mkdir -p %{buildroot}/usr/share/%{rcm_name}
+tar xzvf %{SOURCE1}
+cp -r %{rcm_name}-%{rcm_version}/* %{buildroot}%{_datadir}/%{rcm_name}
+
+# Link to config file
+ln -s /etc/%{rcm_name}/config.inc.php     %{buildroot}%{_datadir}/%{rcm_name}/config/config.inc.php
+
+# Temp directory
+mkdir -p %{buildroot}/usr/share/%{rcm_name}/temp
+
+# Logs
+mkdir -p %{buildroot}/var/log/%{rcm_name}
+
+# GPG keys
+mkdir -p %{buildroot}/usr/share/%{rcm_name}/enigma
+
+# Plugins directory 2FA
+mkdir -p %{buildroot}/usr/share/%{rcm_name}/plugins/twofactor_gauthenticator/
+unzip %{SOURCE2}
+cp -a twofactor_gauthenticator-master/* %{buildroot}/usr/share/%{rcm_name}/plugins/twofactor_gauthenticator/
 
 %files -f %{version}-%{release}-filelist
 %defattr(-,root,root)
 %doc COPYING
 %dir %{_nseventsdir}/%{name}-update
+%{_datadir}/%{rcm_name}
+%config(noreplace) %{_sysconfdir}/logrotate.d/%{rcm_name}
+%dir %attr(0750,apache,apache) %{_datadir}/%{rcm_name}/temp
+%dir %attr(0750,apache,apache) %{_datadir}/%{rcm_name}/enigma
+%dir %attr(0750,apache,apache) /var/log/%{rcm_name}
+%dir %attr(0755,root,root) %{_datadir}/%{rcm_name}/plugins/twofactor_gauthenticator
+%dir %attr(0755,root,root) /etc/%{rcm_name}
+%dir %attr(0755,mysql,mysql) /var/opt/rh/rh-mariadb105/lib/mysql-roundcubemail
 
 %changelog
 * Tue Jul 06 2021 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.5.0-1

@@ -1,8 +1,13 @@
 ========================
-nethserver-roundcubemail
+nethserver-roundcubemail-next
 ========================
 
-Roundcube is a fast webmail client written in PHP.
+Roundcube is a fast webmail client written in PHP. 
+
+nethserver-roundcubemail-next is released in NethForge and it aims to follow last version of roundcubemail.
+Nethserver-roundcubemail is designed to stick on LTS and will be conflicted by nethserver-roundcubemail-next.
+
+You have to remove manually nethserver-roundcubemail before to install nethserver-roundcubemail-next
 
 Database 
 ========
@@ -29,5 +34,5 @@ Example: ::
     skin=larry
 
 
-Configuration can be applied using the ``nethserver-roundcubemail-update`` event.
+Configuration can be applied using the ``nethserver-roundcubemail-next-update`` event.
 
