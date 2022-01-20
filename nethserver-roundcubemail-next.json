@@ -19,7 +19,7 @@
     "email": "edoardo.spadoni@nethesis.it"
   },
   "infoapi": {
-    "path": "nethserver-roundcubemail/read"
+    "path": "nethserver-roundcubemail-next/read"
   },
   "icon": "logo.png",
   "external": true
