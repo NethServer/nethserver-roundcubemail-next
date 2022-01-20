@@ -2,6 +2,6 @@
 # nsapi_nethserver_roundcubemail
 #
 Cmnd_Alias NSAPI_NETHSERVER_ROUNDCUBEMAIL = \
-     /usr/libexec/nethserver/api/nethserver-roundcubemail/read
+     /usr/libexec/nethserver/api/nethserver-roundcubemail-next/read
 
 Defaults!NSAPI_NETHSERVER_ROUNDCUBEMAIL !requiretty
