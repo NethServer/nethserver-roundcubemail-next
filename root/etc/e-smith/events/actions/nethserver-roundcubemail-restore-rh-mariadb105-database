@@ -24,7 +24,7 @@ set -e
 # keep track of the last executed command
 trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
 # echo an error message before exiting
-trap 'echo "Error while restoring roundcubemail database to SCL mariadb105: \"${last_command}\" command filed with exit code $?."' EXIT
+trap 'echo "Roundcubemail DB restoration : \"${last_command}\" command returned exit code $?."' EXIT
 
 source /opt/rh/rh-mariadb105/enable
 
