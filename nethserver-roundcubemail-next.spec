@@ -15,7 +15,7 @@ BuildArch: noarch
 
 BuildRequires: nethserver-devtools
 Requires: nethserver-httpd, nethserver-mail-server
-Conflicts: nethserver-roundcubemail
+Conflicts: roundcubemail
 Requires: nethserver-rh-php73-php-fpm
 Requires: rh-php73-php-pspell
 Requires: nethserver-rh-mariadb105 rh-mariadb105-mariadb-server-utils
