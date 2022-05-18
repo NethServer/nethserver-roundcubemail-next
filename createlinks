@@ -30,6 +30,7 @@ my $event = "nethserver-roundcubemail-next-update";
 
 event_actions($event, 
              'initialize-default-databases' => '00',
+             'nethserver-rouncubemail-next-clean-cache' => '10',
              'nethserver-roundcubemail-conf' => '20'
 );
 templates2events("/etc/httpd/conf.d/roundcubemail.conf",  $event);
