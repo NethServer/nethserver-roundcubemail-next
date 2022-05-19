@@ -35,5 +35,3 @@ php_value[opcache.memory_consumption]  = 128
 php_value[opcache.save_comments]  = 1
 php_value[opcache.revalidate_freq]  = 1
 
-; PHP settings
-php_admin_value[memory_limit] = 512M
