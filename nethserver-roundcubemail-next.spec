@@ -5,7 +5,7 @@
 
 Summary: NethServer configuration for Roundcube mail client
 Name: nethserver-roundcubemail-next
-Version: 1.5.3
+Version: 1.5.4
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -85,6 +85,9 @@ cp -a twofactor_gauthenticator-master/* %{buildroot}/usr/share/%{rcm_name}/plugi
 %dir %attr(0755,mysql,mysql) /var/opt/rh/rh-mariadb105/lib/mysql-roundcubemail
 
 %changelog
+* Mon May 23 2022 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.5.4-1
+- Php custom settings for nethserver-roundcubemail-next - NethServer/dev#6666
+
 * Fri Jan 28 2022 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.5.3-1
 - nethserver-roundcubemail-next; upgrade conflict - Bug NethServer/dev#6631
 
