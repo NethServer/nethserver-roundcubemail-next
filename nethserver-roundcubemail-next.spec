@@ -2,6 +2,8 @@
 %define rcm_version 1.6.5
 # roundcubemail specific name
 %define rcm_name roundcubemail
+# larry version
+%define larry_version 1.6.1
 
 Summary: NethServer configuration for Roundcube mail client
 Name: nethserver-roundcubemail-next
@@ -11,6 +13,7 @@ License: GPL
 Source: %{name}-%{version}.tar.gz
 Source1: https://github.com/roundcube/%{rcm_name}/releases/download/%{rcm_version}/%{rcm_name}-%{rcm_version}-complete.tar.gz
 Source2: https://github.com/alexandregz/twofactor_gauthenticator/archive/master.zip
+Source3: https://github.com/roundcube/larry/archive/refs/tags/%{larry_version}.zip
 BuildArch: noarch
 
 BuildRequires: nethserver-devtools
@@ -70,6 +73,10 @@ mkdir -p %{buildroot}/usr/share/%{rcm_name}/enigma
 mkdir -p %{buildroot}/usr/share/%{rcm_name}/plugins/twofactor_gauthenticator/
 unzip %{SOURCE2}
 cp -a twofactor_gauthenticator-master/* %{buildroot}/usr/share/%{rcm_name}/plugins/twofactor_gauthenticator/
+#Larry skin
+mkdir -p %{buildroot}/usr/share/%{rcm_name}/skins/larry
+unzip %{SOURCE3}
+cp -a  larry-%{larry_version}/* %{buildroot}/usr/share/%{rcm_name}/skins/larry
 
 %files -f %{version}-%{release}-filelist
 %defattr(-,root,root)
@@ -81,6 +88,7 @@ cp -a twofactor_gauthenticator-master/* %{buildroot}/usr/share/%{rcm_name}/plugi
 %dir %attr(0750,apache,apache) %{_datadir}/%{rcm_name}/enigma
 %dir %attr(0750,apache,apache) /var/log/%{rcm_name}
 %dir %attr(0755,root,root) %{_datadir}/%{rcm_name}/plugins/twofactor_gauthenticator
+%dir %attr(0755,root,root) %{_datadir}/%{rcm_name}/skins/larry
 %dir %attr(0755,root,root) /etc/%{rcm_name}
 %dir %attr(0755,mysql,mysql) /var/opt/rh/rh-mariadb105/lib/mysql-roundcubemail
 
