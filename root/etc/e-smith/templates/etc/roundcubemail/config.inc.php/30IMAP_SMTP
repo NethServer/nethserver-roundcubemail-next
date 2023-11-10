@@ -14,7 +14,7 @@
 // For example %n = mail.domain.tld, %t = domain.tld
 // WARNING: After hostname change update of mail_host column in users table is
 //          required to match old user data records with the new host.
-$config['default_host'] = array(
+$config['imap_host'] = array(
     '{ $roundcubemail{'Server'} || 'localhost' }' => '{ $DomainName }',
     '127.0.0.1' => 'Local'
 );
@@ -85,11 +85,7 @@ $config['messages_cache'] = false;
 // %d - domain (http hostname $_SERVER['HTTP_HOST'] without the first part)
 // %z - IMAP domain (IMAP hostname without the first part)
 // For example %n = mail.domain.tld, %t = domain.tld
-$config['smtp_server'] = '127.0.0.1';
-
-// SMTP port (default is 25; use 587 for STARTTLS or 465 for the
-// deprecated SSL over SMTP (aka SMTPS))
-$config['smtp_port'] = 10587;
+$config['smtp_host'] = '127.0.0.1:10587';
 
 // SMTP username (if required) if you use %u as the username Roundcube
 // will use the current username for login
