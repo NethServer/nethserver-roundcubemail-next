@@ -7,7 +7,7 @@
 
 Summary: NethServer configuration for Roundcube mail client
 Name: nethserver-roundcubemail-next
-Version: 1.5.6
+Version: 1.5.7
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -93,6 +93,11 @@ cp -a  larry-%{larry_version}/* %{buildroot}/usr/share/%{rcm_name}/skins/larry
 %dir %attr(0755,mysql,mysql) /var/opt/rh/rh-mariadb105/lib/mysql-roundcubemail
 
 %changelog
+* Tue Nov 14 2023 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.5.7-1
+- Merge pull request #9 from NethServer/1.6.5
+- Upgrade to roundcubemail 1.6.5 and bundle larry skin
+- Modify the smtp host to be compatible with 1.6.5
+
 * Tue Oct 31 2023 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.5.6-1
 - Security update 1.5.5 released for roundcubemail - Bug NethServer/dev#6767
 
