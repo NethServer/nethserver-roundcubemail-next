@@ -1,5 +1,5 @@
 # roundcubemail specific version
-%define rcm_version 1.6.5
+%define rcm_version 1.6.8
 # roundcubemail specific name
 %define rcm_name roundcubemail
 # larry version
