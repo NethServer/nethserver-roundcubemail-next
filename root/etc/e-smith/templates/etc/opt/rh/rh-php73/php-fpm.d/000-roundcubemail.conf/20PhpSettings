@@ -5,7 +5,7 @@
     my $db = esmith::ConfigDB->open_ro() || die("Can't open config db");
 
     my $MemoryLimit = $db->get_prop('roundcubemail','MemoryLimit') || '512';
-    my $UpMaxFileSize = $db->get_prop('roundcubemail','UploadMaxFilesize') || '20';
+    my $UpMaxFileSize = $db->get_prop('roundcubemail','UploadMaxFilesize') || '32';
     my $PostMaxSize = $db->get_prop('roundcubemail','PostMaxSize') || '32';
     my $MaxExecTime = $db->get_prop('roundcubemail','MaxExecutionTime') || '0';
     my $MaxFileUploads = $db->get_prop('roundcubemail','MaxFileUploads') || '20';
