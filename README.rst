@@ -28,9 +28,10 @@ Available properites:
 * ``MaxExecutionTime``: default is 300 seconds. Set the number of seconds a script is allowed to run.
 * ``MaxFileUploads``: default is 20 files. Set the maximum number of files you can upload simultaneously.
 * ``MemoryLimit``: default is 512MB. Set the maximum memory a script is allowed to run.
-* ``PostMaxSize``: default is 32MB. Set the maximum size of POST data that PHP will accept.
-  To mitigate PHP multipart upload vulnerabilities, keep it at 32MB or lower.
-* ``UploadMaxFilesize``: default is 20MB. Set the maximum size of a single uploaded file (attachment): it must be lower than ``PostMaxSize``
+* ``PostMaxSize``: default is 20MB. Set the maximum size of POST data that PHP will accept.
+  Do not raise it over 32MB: larger values weaken the mitigation for PHP
+  CVE-2026-109618 and CVE-2026-109619 (https://www.php.net/archive/2026.php#2026-10-21-5).
+* ``UploadMaxFilesize`` default is 20MB. Set the maximum size of file upload (must be inferior to PostMaxSize)
 
 Example: ::
 
@@ -39,7 +40,7 @@ Example: ::
     MaxFileUploads=20
     MemoryLimit=512
     PluginsList=managesieve,markasjunk
-    PostMaxSize=32
+    PostMaxSize=20
     Server=localhost
     UploadMaxFilesize=20
     access=public
