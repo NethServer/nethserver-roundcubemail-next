@@ -7,7 +7,7 @@
 
 Summary: NethServer configuration for Roundcube mail client
 Name: nethserver-roundcubemail-next
-Version: 1.5.8
+Version: 1.5.9
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -93,6 +93,9 @@ cp -a  larry-%{larry_version}/* %{buildroot}/usr/share/%{rcm_name}/skins/larry
 %dir %attr(0755,mysql,mysql) /var/opt/rh/rh-mariadb105/lib/mysql-roundcubemail
 
 %changelog
+* Thu Oct 22 2026 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.5.9-1
+- PHP critical RCE vulnerabilities (CVE-2026-109618 / CVE-2026-109619) - NethServer/dev#8256
+
 * Thu Aug 29 2024 Stephane de Labrusse <stephdl@de-labrusse.fr> - 1.5.8-1
   - Merge pull request #10 from NethServer/sdl-6999
   - Upgrade roundcubemail to version 1.6.8
